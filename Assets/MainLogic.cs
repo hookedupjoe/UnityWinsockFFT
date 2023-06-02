@@ -21,6 +21,7 @@ public class MainLogic : MonoBehaviour
     public EqData musicData;
     public String serverURL = "ws://localhost/eq";
     public GameObject noConnectDialog;
+    private bool isNoConnectOpen = true;
 
     protected HttpClient client;
 
@@ -324,6 +325,7 @@ public class MainLogic : MonoBehaviour
     }
 
     private void noConnectionDialog(bool theShowFlag) {
+        isNoConnectOpen = theShowFlag;
         noConnectDialog.SetActive(theShowFlag);
     }
     // Update is called once per frame
@@ -331,20 +333,26 @@ public class MainLogic : MonoBehaviour
     {
         //int tmpCount = WebSocketClient.receiveQueue.Count;
         //Debug.Log("Count:" + tmpCount.ToString());
-        if (WebSocketClient == null) {
+        if (WebSocketClient == null && !isNoConnectOpen) {
             Debug.Log("No WebSocketClient");
             noConnectionDialog(true);
             return;
         }
         var cqueue = WebSocketClient.receiveQueue;
-        if (!WebSocketClient.IsConnectionOpen()) {
-            Debug.Log("Not connected");
-            noConnectionDialog(true);
+        if (!WebSocketClient.IsConnectionOpen() ) {
+            if (!isNoConnectOpen) {
+                Debug.Log("Not connected");
+                noConnectionDialog(true);
+            }
             return;
         }
         if (noConnectDialog.activeSelf)
         {
-            noConnectionDialog(false);
+            if (isNoConnectOpen)
+            {
+                Debug.Log("Active, let us start");
+                noConnectionDialog(false);
+            }
         }
         
         

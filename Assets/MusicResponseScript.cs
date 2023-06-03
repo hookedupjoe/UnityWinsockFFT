@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HookedupLED;
 
 public class MusicResponseScript : MonoBehaviour
 {
-    public MainLogic logic;
+    public HookedupLEDAPI logic;
     // Start is called before the first frame update
     void Start()
     {
-        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<MainLogic>();
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<HookedupLEDAPI>();
     }
 
     // Update is called once per frame

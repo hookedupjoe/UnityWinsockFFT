@@ -5,48 +5,48 @@ using UnityEngine;
 
 public class BassDrumScript : MonoBehaviour
 {
-    public HookedupLEDAPI logic;
+    public HookedupLEDAPI ledAPI;
     // Start is called before the first frame update
     void Start()
     {
-        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<HookedupLEDAPI>();
+        ledAPI = GameObject.FindGameObjectWithTag("Logic").GetComponent<HookedupLEDAPI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (logic.musicData != null)
+        if (ledAPI.musicData != null)
         {
-            //Debug.Log("Vol:" + logic.musicData.vol.ToString());
-            //Debug.Log(logic.musicData.vol);
+            //Debug.Log("Vol:" + ledAPI.musicData.vol.ToString());
+            //Debug.Log(ledAPI.musicData.vol);
             float tmpAt = 0;
             float tmpVal = 0;
             int tmpType = 0;
             if (gameObject.name == "KickDrum")
             {
-                tmpVal = logic.musicData.kVal;
+                tmpVal = ledAPI.musicData.kVal;
             }
             else if (gameObject.name == "SnareDrum")
             {
-                tmpVal = logic.musicData.sVal;
+                tmpVal = ledAPI.musicData.sVal;
             }
             else if (gameObject.name == "BassDrum")
             {
-                tmpVal = logic.musicData.bVal;
+                tmpVal = ledAPI.musicData.bVal;
             } 
             else if (gameObject.name == "KickDrumRotate")
             {
-                tmpVal = logic.musicData.kCycle;
+                tmpVal = ledAPI.musicData.kCycle;
                 tmpType = 1;
             }
             else if (gameObject.name == "SnareDrumRotate")
             {
-                tmpVal = logic.musicData.sCycle;
+                tmpVal = ledAPI.musicData.sCycle;
                 tmpType = 1;
             }
             else if (gameObject.name == "BassDrumRotate")
             {
-                tmpVal = logic.musicData.bCycle;
+                tmpVal = ledAPI.musicData.bCycle;
                 tmpType = 1;
             }
 

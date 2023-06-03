@@ -22,17 +22,17 @@ public class MainLogic : MonoBehaviour
         Debug.Log("OnDisconnected");
         NoConnectionDialog(true);
     }
-    // Start is called before the first frame update
+    
     void Start()
     {
+        //--- Get instance of running LEDAPI object
         ledAPI = GameObject.FindGameObjectWithTag("Logic").GetComponent<HookedupLEDAPI>();
+        //--- Attach to connection handlers
         ledAPI.OnConnected += OnConnected;
         ledAPI.OnDisconnected += OnDisconnected;
-        //--- Connect to WinSock server
-        //*** Setup to prompt if blank and have settings option to set this
-        StartConnection();
-        //*** Create the UI
+
         CreateUI();
+        StartConnection();
     }
 
     public void CloseGame()

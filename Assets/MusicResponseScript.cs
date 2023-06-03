@@ -5,17 +5,17 @@ using HookedupLED;
 
 public class MusicResponseScript : MonoBehaviour
 {
-    public HookedupLEDAPI logic;
+    public HookedupLEDAPI ledAPI;
     // Start is called before the first frame update
     void Start()
     {
-        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<HookedupLEDAPI>();
+        ledAPI = GameObject.FindGameObjectWithTag("Logic").GetComponent<HookedupLEDAPI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (logic.musicData != null)
+        if (ledAPI.musicData != null)
         {
             float tmpAt = 0;
             float tmpVal = 0;
@@ -25,7 +25,7 @@ public class MusicResponseScript : MonoBehaviour
             //--- ToDo Make look for the 30 when it works :)
             if (gameObject.name == "Volume")
             {
-                tmpVal = logic.musicData.vol;
+                tmpVal = ledAPI.musicData.vol;
             }
             else 
             {
@@ -34,7 +34,7 @@ public class MusicResponseScript : MonoBehaviour
                     var tmpName = "Bar" + i;
                     if (gameObject.name == tmpName)
                     {
-                        tmpVal = logic.getBandValue(i);
+                        tmpVal = ledAPI.getBandValue(i);
                     }
                 }
             }

@@ -2074,7 +2074,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1010486630}
         m_TargetAssemblyTypeName: MainLogic, Assembly-CSharp
-        m_MethodName: nextSong
+        m_MethodName: NextSong
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

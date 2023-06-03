@@ -241,7 +241,7 @@ public class MainLogic : MonoBehaviour
         createUI();
     }
 
-    public async Task<string> runCommandAsync()
+    /*public async Task<string> runCommandAsync()
     {
         String tmpURL = "http://localhost/home?cmd=musicAction&action=nextsong";
         var request = new HttpRequestMessage
@@ -259,26 +259,35 @@ public class MainLogic : MonoBehaviour
         return responseBody.ToString();
 
 
-    }
+    }*/
+
     public void closeGame()
     {
         Application.Quit();
     }
 
 
-    public void nextSong()
+    public void NextSong()
     {
-        nextSongRun();
+        NextSongRun();
         Debug.Log("Next Song");
     }
 
-    public async void nextSongRun()
+    public void NextSongRun()
     {
-        String tmpURL = "http://localhost/";
+        RunCommand("musicAction", "nextsong");
+/*        String tmpURL = "http://localhost/";
         WebReply tmpReply = await RunWebCommand(tmpURL, "home?cmd=musicAction&action=nextsong");
 
-        Debug.Log("Next Song");
+        Debug.Log("Next Song");*/
     }
+
+    public async void RunCommand(String theCommand,String theAction)
+    {
+        String tmpURL = "http://localhost/";
+        await RunWebCommand(tmpURL, "home?cmd=" + theCommand + "&action=" + theAction);
+    }
+
 
     public void tryToConnect()
     {
@@ -331,17 +340,15 @@ public class MainLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //int tmpCount = WebSocketClient.receiveQueue.Count;
-        //Debug.Log("Count:" + tmpCount.ToString());
         if (WebSocketClient == null && !isNoConnectOpen) {
-            Debug.Log("No WebSocketClient");
+            //Debug.Log("No WebSocketClient");
             noConnectionDialog(true);
             return;
         }
         var cqueue = WebSocketClient.receiveQueue;
         if (!WebSocketClient.IsConnectionOpen() ) {
             if (!isNoConnectOpen) {
-                Debug.Log("Not connected");
+                //Debug.Log("Not connected");
                 noConnectionDialog(true);
             }
             return;
@@ -350,7 +357,7 @@ public class MainLogic : MonoBehaviour
         {
             if (isNoConnectOpen)
             {
-                Debug.Log("Active, let us start");
+                //Debug.Log("Active, let us start");
                 noConnectionDialog(false);
             }
         }
@@ -359,24 +366,11 @@ public class MainLogic : MonoBehaviour
         string msg;
         while (cqueue.TryPeek(out msg))
         {
-            // Parse newly received messages
             cqueue.TryDequeue(out msg);
             HandleMessage(msg);
         }
 
-        /*
-          webSocket.ConnectAsync(new Uri(uri), CancellationToken.None);
-
-
-         Debug.Log(webSocket.State);
-
-         await Receive();
-        */
-
     }
-
-    // WebSocket
-    //private ClientWebSocket ws = new ClientWebSocket();
 
 }
 

@@ -2,11 +2,14 @@ using UnityEngine;
 using System;
 using System.Threading.Tasks;
 using HookedupLED;
+using System.Collections.Generic;
+
 
 public class MainLogic : MonoBehaviour
 {
     public GameObject bandBar;
 
+    
 
     public String serverURL = "ws://localhost/eq";
     public GameObject noConnectDialog;
@@ -21,10 +24,29 @@ public class MainLogic : MonoBehaviour
     {
         Debug.Log("OnDisconnected");
         NoConnectionDialog(true);
+        
     }
-    
+
+    bool DoneAlready(IDictionary<int, bool> theDictionary, int theItem)
+    {
+        bool tmpExists = false;
+        theDictionary.TryGetValue(theItem, out tmpExists);
+        return tmpExists;
+    }
+
+
     void Start()
     {
+
+        IDictionary<int, bool> doneList = new Dictionary<int, bool>();
+        doneList.Add(3, true);
+
+        Debug.Log("3");
+        Debug.Log(DoneAlready(doneList, 3));
+        Debug.Log("2");
+        Debug.Log(DoneAlready(doneList, 2));
+
+
         //--- Get instance of running LEDAPI object
         ledAPI = GameObject.FindGameObjectWithTag("Logic").GetComponent<HookedupLEDAPI>();
         //--- Attach to connection handlers

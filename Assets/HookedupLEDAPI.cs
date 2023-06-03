@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Net.Http;
-using System.Net.Mime;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -477,6 +476,8 @@ namespace HookedupLED
         public static string StreamToString(MemoryStream ms, Encoding encoding)
         {
             string readString = "";
+
+            
             if (encoding == Encoding.UTF8)
             {
                 using (var reader = new StreamReader(ms, encoding))
